@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     chromosome.cpp \
-    uniformintgenerator.cpp
+    uniformintgenerator.cpp \
+    chromosomepopulation.cpp
 
 HEADERS  += mainwindow.h \
     chromosome.h \
-    uniformintgenerator.h
+    uniformintgenerator.h \
+    chromosomepopulation.h
 
 FORMS    += mainwindow.ui
 

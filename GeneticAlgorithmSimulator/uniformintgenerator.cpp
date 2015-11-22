@@ -10,7 +10,6 @@ UniformIntGenerator & UniformIntGenerator::instance()
     static UniformIntGenerator instance;
     return instance;
 }
-
 /**
  * @brief Returns a number between the specified bounds. If the bounds are changed from the last time, new distribution is created.
  */
