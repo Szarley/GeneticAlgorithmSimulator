@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     chromosome.cpp \
     uniformintgenerator.cpp \
-    chromosomepopulation.cpp
+    chromosomepopulation.cpp \
+    gasimulator.cpp
 
 HEADERS  += mainwindow.h \
     chromosome.h \
     uniformintgenerator.h \
-    chromosomepopulation.h
+    chromosomepopulation.h \
+    gasimulator.h
 
 FORMS    += mainwindow.ui
 

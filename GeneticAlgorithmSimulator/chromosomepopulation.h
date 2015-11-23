@@ -1,21 +1,31 @@
 #ifndef CHROMOSOMEPOPULATION_H
 #define CHROMOSOMEPOPULATION_H
 #include <vector>
+#include <algorithm>
 #include "chromosome.h"
 
-typedef Chromosome* (*chromosomeGenerator)(int);
+double (*fitnessComparisonCheck)(Chromosome*,Chromosome*);
 class ChromosomePopulation
 {
 public:
-    static ChromosomePopulation* createNullPopulation(const int populationSize, const int bitCount);
-    static ChromosomePopulation* createRandomPopulation(const int populationSize, const int bitCount);
     ~ChromosomePopulation();
+    ChromosomePopulation(const int populationLimit);
+    ChromosomePopulation(const ChromosomePopulation &);
+    ChromosomePopulation & operator=(const ChromosomePopulation &);
+
+    ChromosomePopulation & fillWithRandomChromosomes(const int bitCount);
+    ChromosomePopulation & fillWithZeroChromosomes(const int bitCount);
+    ChromosomePopulation & kill();
+    bool addChromosome(Chromosome* chromosome);
+    ChromosomePopulation & sortByFitness(fitnessComparisonCheck);
+    bool isFull() const;
+    int size() const;
+
 private:
     std::vector<Chromosome*> population;
-    ChromosomePopulation(const int populationSize,const int bitCount, chromosomeGenerator generator);
-
-    ChromosomePopulation(const ChromosomePopulation &)=delete;
-    ChromosomePopulation & operator=(const ChromosomePopulation &)=delete;
+    int populationLimit;
+    void deletePopulationPointers();
 };
+
 
 #endif // CHROMOSOMEPOPULATION_H

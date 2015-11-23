@@ -5,7 +5,7 @@ Chromosome::Chromosome(const int bitCount)
 
 }
 
-Chromosome* Chromosome::createNullChromosome(const int bitCount)
+Chromosome* Chromosome::createZeroChromosome(const int bitCount)
 {
     return new Chromosome(bitCount);
 }
@@ -15,6 +15,11 @@ Chromosome* Chromosome::createRandomChromosome(const int bitCount)
     Chromosome* chromosome = new Chromosome(bitCount);
     chromosome->randomizeBits();
     return chromosome;
+}
+
+Chromosome::Chromosome(std::vector<bool> bits)
+    : bits(bits)
+{
 }
 
 void Chromosome::randomizeBits()
@@ -65,4 +70,9 @@ void Chromosome::mutateRandomBit()
 {
     int bit = UniformIntGenerator::instance().generate(0 , bits.size() - 1);
     bits[bit] = !bits[bit];
+}
+
+Chromosome* copy(Chromosome* source)
+{
+    return new Chromosome(source->bits);
 }

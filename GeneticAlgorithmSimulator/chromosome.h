@@ -6,9 +6,10 @@
 #include "uniformintgenerator.h"
 class Chromosome
 {
+    friend Chromosome* copy(Chromosome *source);
 public:
     static Chromosome* createRandomChromosome(const int bitCount);
-    static Chromosome* createNullChromosome(const int bitCount);
+    static Chromosome* createZeroChromosome(const int bitCount);
     int getBitCount() const;
     int getDecimalRepresentation() const;
     void mutateRandomBit();
@@ -17,7 +18,9 @@ public:
 private:
     std::vector<bool> bits;
     Chromosome(const int bitCount);
+    Chromosome(std::vector<bool> bits);
     void randomizeBits();
 };
+
 
 #endif // CHROMOSOME_H
