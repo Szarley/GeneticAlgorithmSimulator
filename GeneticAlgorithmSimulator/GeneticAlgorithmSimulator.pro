@@ -23,7 +23,9 @@ HEADERS  += mainwindow.h \
     chromosome.h \
     uniformintgenerator.h \
     chromosomepopulation.h \
-    gasimulator.h
+    gasimulator.h \
+    enumtypes.h \
+    parameters.h
 
 FORMS    += mainwindow.ui
 

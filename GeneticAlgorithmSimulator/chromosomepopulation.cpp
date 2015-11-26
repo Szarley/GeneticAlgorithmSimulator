@@ -1,5 +1,4 @@
 #include "chromosomepopulation.h"
-
 ChromosomePopulation::ChromosomePopulation(const int populationSize)
     : populationLimit(populationSize)
 {
@@ -16,8 +15,11 @@ ChromosomePopulation::ChromosomePopulation(const ChromosomePopulation & source)
 ChromosomePopulation & ChromosomePopulation::operator=(const ChromosomePopulation & source)
 {
     this->kill();
+    this->populationLimit = source.populationLimit;
     for(auto chromosome : source.population)
-        this->population.push_back(copy(chromosome));
+    {
+        this->population.push_back(copy(chromosome));        
+    }
     return *this;
 }
 
@@ -69,7 +71,59 @@ bool ChromosomePopulation::addChromosome(Chromosome *chromosome)
     return true;
 }
 
-ChromosomePopulation& ChromosomePopulation::sortByFitness(fitnessComparisonCheck)
+ChromosomePopulation & ChromosomePopulation::sortByFitness(FitnessComparisonPredicate compare)
 {
-    std::sort(population.begin(),population.back(),fitnessComparisonCheck);
+    std::sort(population.begin(),population.end(),compare);
+    return *this;
+}
+ChromosomePopulation & ChromosomePopulation::mutate(MutationType mutationType, const double mutationCoefficient, const int bit)
+{
+    switch(mutationType)
+    {
+    case MutationType::ChosenBit:
+        return chosenBitMutation(mutationCoefficient, bit);
+    case MutationType::RandomBit:
+        return randomMutation(mutationCoefficient);
+    case MutationType::None:
+        return *this;
+    default:
+        return *this;
+    };
+}
+
+/*
+ *
+ * TODO:
+ * Functions:
+ * ChromosomePopulation::randomMutation
+ * ChromosomePopulation::chosenBitMutation  ->  DRY violation....
+ *
+ */
+ChromosomePopulation & ChromosomePopulation::chosenBitMutation(const double mutationCoefficient, const int bit)
+{
+    int coefficient = transposeMutationCoefficient(mutationCoefficient);
+    for(auto chromosome : population)
+    {
+        if(UniformIntGenerator::instance().generate(1,100) < coefficient)
+            chromosome->mutateBit(bit);
+    }
+    return *this;
+}
+
+ChromosomePopulation & ChromosomePopulation::randomMutation(const double mutationCoefficient)
+{
+    int coefficient = transposeMutationCoefficient(mutationCoefficient);
+    for(auto chromosome : population)
+    {
+        if(UniformIntGenerator::instance().generate(1,100) < coefficient)
+            chromosome->mutateRandomBit();
+    }
+    return *this;
+}
+
+int ChromosomePopulation::transposeMutationCoefficient(const double mutationCoefficient) const
+{
+    if(mutationCoefficient <= 0) return 0;
+    if(mutationCoefficient >= 1.0) return 100;
+    return (mutationCoefficient * 100);
 }

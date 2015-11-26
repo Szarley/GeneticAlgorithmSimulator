@@ -18,7 +18,7 @@ public:
 private:
     std::vector<bool> bits;
     Chromosome(const int bitCount);
-    Chromosome(std::vector<bool> bits);
+    Chromosome(const std::vector<bool> bits);
     void randomizeBits();
 };
 
