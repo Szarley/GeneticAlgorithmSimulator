@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     chromosome.cpp \
     uniformintgenerator.cpp \
     chromosomepopulation.cpp \
-    gasimulator.cpp
+    gasimulator.cpp \
+    parameters.cpp
 
 HEADERS  += mainwindow.h \
     chromosome.h \
@@ -25,7 +26,8 @@ HEADERS  += mainwindow.h \
     chromosomepopulation.h \
     gasimulator.h \
     enumtypes.h \
-    parameters.h
+    parameters.h \
+    enumparser.h
 
 FORMS    += mainwindow.ui
 

@@ -1,0 +1,14 @@
+#ifndef ENUMSTRINGMAPPER_H
+#define ENUMSTRINGMAPPER_H
+#include "enumtypes.h"
+
+class EnumStringMapper
+{
+public:
+    EnumStringMapper & instance();
+private:
+    EnumStringMapper();
+    
+};
+
+#endif // ENUMSTRINGMAPPER_H
