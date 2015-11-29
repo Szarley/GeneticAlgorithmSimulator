@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     populateComboBoxes();
+    setTextEditValidators();
 }
 
 MainWindow::~MainWindow()
@@ -32,6 +33,7 @@ void MainWindow::populateComboBoxes()
 {
   ui->CBMutationType->addItems(EnumParser<MutationType>::instance().getValues());
   ui->CBFinishCondition->addItems(EnumParser<FinishCondition>::instance().getValues());
+  ui->CBSelectionType->addItems(EnumParser<SelectionType>::instance().getValues());
 }
 
 void MainWindow::on_sliderMutation_valueChanged(int value)
@@ -41,31 +43,30 @@ void MainWindow::on_sliderMutation_valueChanged(int value)
 
 void MainWindow::on_CBMutationType_currentIndexChanged(const QString &chosen)
 {
-
-    if (chosen == EnumParser<MutationType>::instance().parse(MutationType::None))
+    switch(EnumParser<MutationType>::instance().toEnum(chosen))
     {
+    case MutationType::None:
         adjustRelatedWidgetsForMutationNone();
-    }
-    else if (chosen == EnumParser<MutationType>::instance().parse(MutationType::ChosenBit))
-    {
+        break;
+    case MutationType::ChosenBit:
         adjustRelatedWidgetsForMutationChosen();
-    }
-    else if (chosen == EnumParser<MutationType>::instance().parse(MutationType::RandomBit))
-    {
+        break;
+    case MutationType::RandomBit:
         adjustRelatedWidgetsForMutationRandom();
+        break;
     }
-
 }
 
 void MainWindow::on_CBFinishCondition_currentIndexChanged(const QString &chosen)
 {
-    if(chosen == EnumParser<FinishCondition>::instance().parse(FinishCondition::ChromosomeMajority))
+    switch(EnumParser<FinishCondition>::instance().toEnum(chosen))
     {
-        adjustRelatedWidgetsForIterationCount();
-    }
-    else if(chosen == EnumParser<FinishCondition>::instance().parse(FinishCondition::IterationCount))
-    {
+    case FinishCondition::ChromosomeMajority:
         adjustRelatedWidgetsForChromosomeMajority();
+        break;
+    case FinishCondition::IterationCount:
+        adjustRelatedWidgetsForIterationCount();
+        break;
     }
 }
 
@@ -73,7 +74,7 @@ void MainWindow::adjustRelatedWidgetsForIterationCount()
 {
     ui->sliderFinishCondition->setRange(1,10000);
     ui->sliderFinishCondition->setValue(1);
-    ui->txtFinishCondition->setText("0");
+    ui->txtFinishCondition->setText("1");
     ui->labelFinishConditionDescription->setText(UILabels::finishConditionIteration);
 }
 
@@ -81,7 +82,7 @@ void MainWindow::adjustRelatedWidgetsForChromosomeMajority()
 {
     ui->sliderFinishCondition->setRange(1,100);
     ui->sliderFinishCondition->setValue(1);
-    ui->txtFinishCondition->setText("0");
+    ui->txtFinishCondition->setText("1");
     ui->labelFinishConditionDescription->setText(UILabels::finishConditionChrMajority);
 }
 
@@ -92,6 +93,8 @@ void MainWindow::adjustRelatedWidgetsForMutationNone()
     ui->txtMutation->setEnabled(false);
     ui->txtMutationBitNumber->setEnabled(false);
     ui->txtMutationBitNumber->setText("none");
+    ui->sliderMutationBit->setValue(0);
+    ui->sliderMutationBit->setEnabled(false);
 }
 
 void MainWindow::adjustRelatedWidgetsForMutationRandom()
@@ -101,6 +104,8 @@ void MainWindow::adjustRelatedWidgetsForMutationRandom()
     ui->txtMutation->setEnabled(true);
     ui->txtMutationBitNumber->setEnabled(false);
     ui->txtMutationBitNumber->setText("rand");
+    ui->sliderMutationBit->setValue(0);
+    ui->sliderMutationBit->setEnabled(false);
 }
 
 void MainWindow::adjustRelatedWidgetsForMutationChosen()
@@ -109,9 +114,70 @@ void MainWindow::adjustRelatedWidgetsForMutationChosen()
     ui->txtMutation->setEnabled(true);
     ui->txtMutationBitNumber->setEnabled(true);
     ui->txtMutationBitNumber->setText("0");
+    ui->sliderMutationBit->setEnabled(true);
 }
 
 void MainWindow::on_sliderFinishCondition_valueChanged(int value)
 {
     ui->txtFinishCondition->setText(QString::number(value));
+}
+
+void MainWindow::on_sliderElitism_valueChanged(int value)
+{
+    ui->txtElitism->setText(QString::number(value));
+}
+
+void MainWindow::setTextEditValidators()
+{
+    ui->txtElitism->setValidator(new QIntValidator(0,100,this));
+    ui->txtMutation->setValidator(new QIntValidator(0,100,this));
+    ui->txtFinishCondition->setValidator(new QIntValidator(0,100,this));
+    ui->txtMutationBitNumber->setValidator(new QIntValidator(0,1,this));
+    ui->txtPopulationSize->setValidator(new QIntValidator(1,1000,this));
+    ui->txtBitCount->setValidator(new QIntValidator(1,20,this));
+}
+
+void MainWindow::on_txtElitism_textChanged(const QString &text)
+{
+    ui->sliderElitism->setValue(text.toInt());
+}
+
+void MainWindow::on_txtFinishCondition_textChanged(const QString &text)
+{
+    ui->sliderFinishCondition->setValue(text.toInt());
+}
+
+void MainWindow::on_txtMutation_textChanged(const QString &text)
+{
+    ui->sliderMutation->setValue(text.toInt());
+}
+
+void MainWindow::on_sliderMutationBit_valueChanged(int value)
+{
+    ui->txtMutationBitNumber->setText(QString::number(value));
+}
+
+void MainWindow::on_txtMutationBitNumber_textChanged(const QString &text)
+{
+    ui->sliderMutationBit->setValue(text.toInt());
+}
+
+void MainWindow::on_sliderPopulationSize_valueChanged(int value)
+{
+    ui->txtPopulationSize->setText(QString::number(value));
+}
+
+void MainWindow::on_sliderBitCount_valueChanged(int value)
+{
+    ui->txtBitCount->setText(QString::number(value));
+}
+
+void MainWindow::on_txtPopulationSize_textChanged(const QString &text)
+{
+    ui->sliderPopulationSize->setValue(text.toInt());
+}
+
+void MainWindow::on_txtBitCount_textChanged(const QString &text)
+{
+    ui->sliderBitCount->setValue(text.toInt());
 }

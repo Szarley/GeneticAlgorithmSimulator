@@ -3,7 +3,7 @@
 
 /**
  * @brief The SelectionType enum specifies the selection type used in the GA.
- * Selection influences which chromosomes will take part in the breeding process.
+ * Selection influences which chromosomes have the biggest chance to take part in the breeding process.
  */
 enum class SelectionType
 {

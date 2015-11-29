@@ -13,7 +13,8 @@ class EnumParser
 {
 public:
     static EnumParser<T> & instance();
-    QString parse(T) const;
+    QString toString(T key) const;
+    T toEnum(const QString value) const;
     QList<QString> getValues() const;
 private:
     EnumParser();
@@ -28,9 +29,14 @@ EnumParser<T> & EnumParser<T>::instance()
 }
 
 template<typename T>
-QString EnumParser<T>::parse(T type) const
+QString EnumParser<T>::toString(T key) const
 {
-    return enumMap[type];
+    return enumMap[key];
+}
+template<typename T>
+T EnumParser<T>::toEnum(const QString value) const
+{
+    return enumMap.key(value);
 }
 template<typename T>
 QList<QString> EnumParser<T>::getValues() const
@@ -51,6 +57,12 @@ EnumParser<MutationType>::EnumParser()
     enumMap[MutationType::None] = "none";
     enumMap[MutationType::ChosenBit] = "chosen bit";
     enumMap[MutationType::RandomBit] = "random bit";
+}
+
+template<>
+EnumParser<SelectionType>::EnumParser()
+{
+    enumMap[SelectionType::RankSelection] = "rank selection";
 }
 
 #endif // ENUMSTRINGMAPPER_H

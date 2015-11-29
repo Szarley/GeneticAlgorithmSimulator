@@ -12,7 +12,7 @@ UniformIntGenerator & UniformIntGenerator::instance()
 }
 /**
  * @brief Returns a number between specified bounds.
- * Ifnbounds are changed from the last time, the new distribution is created.
+ * If bounds are changed from the last time, a new distribution is created.
  */
 int UniformIntGenerator::generate(const int lowerBound, const int upperBound)
 {
