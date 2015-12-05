@@ -27,12 +27,12 @@
      <string>Start</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>11</x>
       <y>11</y>
-      <width>311</width>
+      <width>323</width>
       <height>599</height>
      </rect>
     </property>
@@ -82,7 +82,7 @@
             </size>
            </property>
            <property name="text">
-            <string>0</string>
+            <string>1</string>
            </property>
            <property name="maxLength">
             <number>6</number>
@@ -145,7 +145,7 @@
             </size>
            </property>
            <property name="text">
-            <string>0</string>
+            <string>1</string>
            </property>
            <property name="maxLength">
             <number>6</number>
@@ -463,26 +463,6 @@ to the next population</string>
      </item>
     </layout>
    </widget>
-   <zorder>pushButtonStart</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>labelSelectionType</zorder>
-   <zorder>CBSelectionType</zorder>
-   <zorder>labelElitismDescription</zorder>
-   <zorder>txtElitism</zorder>
-   <zorder>sliderElitism</zorder>
-   <zorder>sliderMutationBit</zorder>
-   <zorder>sliderBitCount</zorder>
-   <zorder>labelElitism_2</zorder>
-   <zorder>txtBitCount</zorder>
-   <zorder>labelBitCountDescription</zorder>
-   <zorder>labelPopulationSizeDescription</zorder>
-   <zorder>txtPopulationSize</zorder>
-   <zorder>sliderPopulationSize</zorder>
-   <zorder>labelPopulationSize</zorder>
-   <zorder>labelPopulationSize</zorder>
-   <zorder>verticalSpacer</zorder>
-   <zorder>labelPopulationSize</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

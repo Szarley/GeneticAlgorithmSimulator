@@ -21,12 +21,28 @@ MainWindow::~MainWindow()
 SimulationParameters MainWindow::readSimulationParameters()
 {
     SimulationParameters params;
+    params.finishCondition = EnumParser<FinishCondition>::instance().toEnum(ui->CBFinishCondition->currentText());
+    params.selectionType = EnumParser<SelectionType>::instance().toEnum(ui->CBSelectionType->currentText());
+    params.mutationType = EnumParser<MutationType>::instance().toEnum(ui->CBMutationType->currentText());
+    params.elitismCoefficient = ui->sliderElitism->value();
+    params.mutationCoefficient = ui->sliderMutation->value();
+    if(params.finishCondition == FinishCondition::IterationCount)
+    {
+        params.iterationCount = ui->sliderFinishCondition->value();
+       // params.chromosomeMajority = 0;
+    }
+    else
+    {
+        //params.chromosomeMajority = ui->sliderFinishCondition->value() / 100.0;
+        params.iterationCount = 0;
+    }
     return params;
 }
 
 void MainWindow::on_pushButtonStart_clicked()
 {
     simulator.setParameters(readSimulationParameters());
+    int x;
 }
 
 void MainWindow::populateComboBoxes()
@@ -170,6 +186,8 @@ void MainWindow::on_sliderPopulationSize_valueChanged(int value)
 void MainWindow::on_sliderBitCount_valueChanged(int value)
 {
     ui->txtBitCount->setText(QString::number(value));
+    ui->txtMutationBitNumber->setValidator(new QIntValidator(0,value - 1,this));
+    ui->sliderMutationBit->setRange(0, value - 1);
 }
 
 void MainWindow::on_txtPopulationSize_textChanged(const QString &text)
