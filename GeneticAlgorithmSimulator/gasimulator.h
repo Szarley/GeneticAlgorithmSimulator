@@ -10,10 +10,12 @@ public:
     GASimulator();
     void start();
     void stop() const;
+    SimulationParameters getParameters() const;
     GASimulator & setParameters(const SimulationParameters & parameters);
 private:
     std::stack<ChromosomePopulation> populationStack;
     FitnessComparisonPredicate fCompPred;
+    FitnessFunction fitnessFun;
     SimulationParameters parameters;
 };
 

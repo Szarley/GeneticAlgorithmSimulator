@@ -4,32 +4,39 @@ const QString UILabels::finishConditionIteration = "number of iterations to fini
 const QString UILabels::finishConditionChrMajority = "% of twin Chromosome to finish";
 
 SimulationParameters::SimulationParameters()
-    : iterationCount        (0),
+    : finishCoefficient     (0),
+      populationSize        (0),
+      bitCount              (0),
+      mutationBit           (0),
       elitismCoefficient    (0.0),
       mutationCoefficient   (0.0),
       selectionType         (SelectionType::RankSelection),
       mutationType          (MutationType::None),
-      finishCondition       (FinishCondition::IterationCount),
-      fitFunction           (nullptr)
+      finishCondition       (FinishCondition::IterationCount)
 {
 
 }
 
-SimulationParameters::SimulationParameters(int iterationCount,
+SimulationParameters::SimulationParameters(
+                     int finishCoeff,
+                     int populationSize,
+                     int bitCount,
+                     int mutationBit,
                      double elitismCoefficient,
                      double mutationCoefficient,
                      SelectionType selectionType,
                      MutationType mutationType,
-                     FinishCondition finishCondition,
-                     FitnessFunction fitFunction)
+                     FinishCondition finishCondition)
 
-    : iterationCount        (iterationCount),
+    : finishCoefficient     (finishCoeff),
+      populationSize        (populationSize),
+      bitCount              (bitCount),
+      mutationBit           (mutationBit),
       elitismCoefficient    (elitismCoefficient),
       mutationCoefficient   (mutationCoefficient),
       selectionType         (selectionType),
       mutationType          (mutationType),
-      finishCondition       (finishCondition),
-      fitFunction           (fitFunction)
+      finishCondition       (finishCondition)
 {
 
 }

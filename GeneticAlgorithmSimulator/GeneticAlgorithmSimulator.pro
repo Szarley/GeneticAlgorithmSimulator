@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+            printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,7 +19,9 @@ SOURCES += main.cpp\
     uniformintgenerator.cpp \
     chromosomepopulation.cpp \
     gasimulator.cpp \
-    parameters.cpp
+    parameters.cpp \
+    paramsdialog.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
     chromosome.h \
@@ -27,8 +30,11 @@ HEADERS  += mainwindow.h \
     gasimulator.h \
     enumtypes.h \
     parameters.h \
-    enumparser.h
+    enumparser.h \
+    paramsdialog.h \
+    qcustomplot.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    paramsdialog.ui
 
 QMAKE_CXXFLAGS += -std=c++0x

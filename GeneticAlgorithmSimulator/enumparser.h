@@ -45,14 +45,14 @@ QList<QString> EnumParser<T>::getValues() const
 }
 
 template<>
-EnumParser<FinishCondition>::EnumParser()
+inline EnumParser<FinishCondition>::EnumParser()
 {
     enumMap[FinishCondition::ChromosomeMajority] = "chromosome majority";
     enumMap[FinishCondition::IterationCount] = "iteration count";
 }
 
 template<>
-EnumParser<MutationType>::EnumParser()
+inline EnumParser<MutationType>::EnumParser()
 {
     enumMap[MutationType::None] = "none";
     enumMap[MutationType::ChosenBit] = "chosen bit";
@@ -60,7 +60,7 @@ EnumParser<MutationType>::EnumParser()
 }
 
 template<>
-EnumParser<SelectionType>::EnumParser()
+inline EnumParser<SelectionType>::EnumParser()
 {
     enumMap[SelectionType::RankSelection] = "rank selection";
 }

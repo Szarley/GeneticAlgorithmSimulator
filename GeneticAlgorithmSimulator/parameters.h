@@ -2,12 +2,16 @@
 #define PARAMETERS_LONG_PRETTYFULL_HEADER
 #include "enumtypes.h"
 #include <QString>
-typedef double (*FitnessFunction)(double,double);
-
 struct SimulationParameters
 {
 
-    int iterationCount;
+    int finishCoefficient;
+
+    int populationSize;
+
+    int bitCount;
+
+    int mutationBit;
 
     double elitismCoefficient;
 
@@ -19,17 +23,17 @@ struct SimulationParameters
 
     FinishCondition finishCondition;
 
-    FitnessFunction fitFunction;
-
     SimulationParameters();
 
-    SimulationParameters(int iterationCount,
+    SimulationParameters(int finishCoeff,
+                         int populationSize,
+                         int bitCount,
+                         int mutationBit,
                          double elitismCoefficient,
                          double mutationCoefficient,
                          SelectionType selectionType,
                          MutationType mutationType,
-                         FinishCondition finishCondition,
-                         FitnessFunction fitFunction);
+                         FinishCondition finishCondition);
 };
 
 struct UILabels{
